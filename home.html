@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home page</title>
+
+    <link rel="stylesheet" type="text/css" href="stylingpart/home.css">
+    <link rel="stylesheet"  type="text/css" href="stylingpart/stylemain.css">
+
+    <script rel="javascript" type="text/javascript" src="actionfile/movies.js"></script>
+    
+</head>
+
+<body onload="onloadmovies()">
+    <div class="navigation">
+        <p>MAIN MENU</p>
+        <nav>
+        <ul>
+            <li><a role="home.html" aria-disabled="true">Home page</a></li>
+            <li><a href="nowshowingpage.html">Now Showing page</a></li>
+            <li><a href="ticket.html">Ticket page</a></li>
+        </ul>
+        </nav>
+    </div>
+    <br>
+    <div>
+        <h1>New<img src="images/filmreel.png " alt="Not available" id="logo"> World</h1>
+        <br>
+        
+    </div>
+    <br><br>
+
+    <br><br>
+    <div class="showing">
+        <p> List of movies: upcoming and now showing- item(e)</p>
+        <p>e.g.</p>
+        <div id="insvid"></div>
+        <br>
+            <p>Now showing movies</p>
+            <br><br>
+            <p class="desc" id="remo"></p>
+            <div id="nowshowing"></div>
+           
+            <br><br>
+            <p>Upcoming movies</p>
+            <br><br>
+            <div id="upcoming"></div>
+            
+    </div>
+    <br>
+    <script>
+        
+        window.onload=init();
+         function init(){
+         var i=0;
+         var j=0;
+         var database=getMovies();
+         var l= database.length;
+         console.log(l)
+         console.log(database[0].name)
+        
+         for(i;i<l;i++){
+            var mn = database[i].name;
+            var tbn = database[i].thumbnail;
+            var ca = database[i].cast;
+            var di = database[i].director;
+            var du = database[i].duration;
+            var idd = database[i].id;
+            console.log(mn,tbn,ca,di,du,idd) 
+
+            var sr = database[i].src;
+            var vid = document.createElement("video");
+            vid.controls="controls";
+            vid.autoplay="autoplay";
+            vid.muted="muted";  
+                            
+            vid.innerHTML = "<source src="+sr.replace(".mp4",".ogg")+" type=\"video/ogg\"> <source src="+sr+" type=\"video/mp4\"> <h2>Your Browser does not support this video format</h2>" ;     
+            
+            document.getElementById("insvid").appendChild(vid); 
+            
+            console.log(sr.replace(".mp4",".ogg")+" is the src in .ogg");
+            
+            console.log(vid);
+            
+            if (database[i].type== "now"){
+                var para = document.createElement("dd");                 
+                para.innerHTML = "<h3><span>Movie:</span> "+mn+"</h3><img src="+tbn+" alt="+mn+" class=\"thumbnail\" onclick=\"clickedimg("+idd+")\"> <p class=\"desc\"><span>Cast:</span> "+ca+" <br><span>Director:</span> "+di+" <br><span>Duration:</span> " +du+ "</p><br>" ;     
+                document.getElementById("nowshowing").appendChild(para); 
+                document.getElementById("remo").style.display="none"; 
+
+            } else { 
+                var para = document.createElement("dd");                 
+                para.innerHTML = "<h3><span>Movie:</span> "+mn+"</h3><img src="+tbn+" alt="+mn+" class=\"thumbnail\" onclick=\"clickedimg("+idd+")\"> <p class=\"desc\"><span>Cast:</span> "+ca+" <br><span>Director:</span> "+di+" <br><span>Duration:</span> " +du+ "</p><br>" ;     
+                document.getElementById("upcoming").appendChild(para); }
+         }
+        
+         }
+        
+            
+        </script>
+
+    <div id="footer">
+        <p>Footer:@Copyright of resources belong to corresponding copywrite owners</p>
+        <p>- fair use for education purposes <a href="home.html">| Home |</a> <a href="design.html">Design</a></p>
+    </div>
+
+    <script>
+
+        // Changing video
+        var index_video=0;
+        
+        function clickedimg(id){
+            index_video = 0+id-1;
+            return slideshow_video();
+        }
+        
+         slideshow_video();
+        
+         function slideshow_video(){
+         var slides=document.querySelectorAll("video");
+         var i;
+         for(i=0; i<slides.length; i++){
+           slides[i].style.display="none";
+        
+         }
+         index_video++;
+         if(index_video>slides.length)
+            index_video=1;
+         slides[index_video-1].style.display="block";
+         slides[index_video-1].load();
+         slides[index_video-1].onended=function()
+         {setTimeout(slideshow_video,2000);}
+         }
+        
+        
+        </script>
+
+</body>
+
+</html>
