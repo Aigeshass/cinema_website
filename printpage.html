@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Print page</title>
+    <link rel="stylesheet" type="text/css" href="stylingpart/stylemain.css" >
+    <link rel="stylesheet" type="text/css" href="stylingpart/print.css">
+
+</head>
+<body>
+    <header id="header">
+        <div class="navigation">
+            <p>MAIN MENU</p>
+            <nav>
+                <ul>
+                    <li><a href="home.html">Home page</a></li>
+                    <li><a href="nowshowingpage.html">Now Showing page</a></li>
+                    <li><a href="ticket.html">Ticket page</a></li>
+                 </ul>
+            </nav>
+        </div>
+        <br>
+        <div>
+            <h1>New<img src="images/filmreel.png " alt="Not available" id="logo"> World</h1>
+        </div>
+        
+        <br><br>
+    </header>
+    <div class="row"></div>
+    
+    <footer id="footer">
+        <div >
+            <p>Footer:@Copyright of resources belong to corresponding copywrite owners- fair use for </p>
+            <p>education purposes <a href="home.html">| Home |</a> <a href="design.html">Design</a> </p>
+        </div>
+    </footer>
+    <script>
+        window.onload = init();
+
+        function init() {
+            const name = localStorage.getItem("movieName");
+            const date = localStorage.getItem("date");
+            const cinema = localStorage.getItem("Cinema");
+            const c = localStorage.getItem("a");
+            let a = c.split(",");
+            const house = localStorage.getItem("house");
+            const loc = document.querySelector(".booked-ticket");
+            console.log(name, date, cinema, house, a[1]);
+
+            for (let z = 0; z <(a.length);z++)
+            {
+                var frm = document.createElement("form");
+                frm.setAttribute("class","ticket-form");             
+                frm.innerHTML = "<div><h3>TICKET "+(z+1)+"</h3><label>Cinema:</label><input value=\""+cinema+"\" readonly><br><label>Movie:</label><input value=\""+name+"\" readonly><br><label>Date Time:</label><input value="+date+" readonly><br><label>House No:</label><input value="+house+" readonly><br><label>Seat:</label><input value="+a[z]+" readonly></div>";     
+                
+                var dd = document.createElement("div");
+                dd.setAttribute("class","column");
+                dd.append(frm);
+
+                document.getElementsByClassName("row")[0].appendChild(dd); 
+            }
+
+        }
+       localStorage.clear();
+    </script>
+    
+    
+</body>
+
+</html>
