@@ -1,0 +1,19 @@
+@media print {
+    #header, footer{
+        display:none;
+    }
+    #ticket1{
+        page-break-after: always;
+    }
+}
+[type="text"]{
+    position:relative;
+    margin-right: 10px;
+    width:200px;
+}
+#ticket1, #ticket2{
+    height:200px;
+    text-align: center;
+    font-size: 25px;
+    height:300px;
+}
