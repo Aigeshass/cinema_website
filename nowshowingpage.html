@@ -1,0 +1,226 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Now Showing page</title>
+    <link rel="stylesheet" type="text/css" href="stylingpart/stylemain.css">
+    <link rel="stylesheet" type="text/css"  href="stylingpart/nowshowing.css">
+    
+    <script rel="javascript" type="text/javascript" src="actionfile/movies.js"></script>
+    <script rel="javascript" type="text/javascript" src="actionfile/cinemas.js"></script>
+    
+</head>
+<body>
+    <div class="navigation">
+        <p>MAIN MENU</p>
+        <nav>
+            <ul>
+                <li><a href="home.html">Home page</a></li>
+                <li><a role="nowshowingpage.html" aria-disabled="true">Now Showing page</a></li>
+                <li><a href="ticket.html">Ticket page</a></li>
+             </ul>
+        </nav>
+    </div>
+    <br>
+    <div>
+        <h1>New<img src="images/filmreel.png " alt="Not available" id="logo"> World</h1>
+    </div>
+   
+    <br><br>
+    <div>
+        <form action="ticket.html" method="GET">
+            <p><label for="options">Select Cinema:</label>
+                <select name="cinema" id="cinema">
+                    <option value="" selected="selected">Cinema
+                        Hall</option>
+                </select>
+            
+            <br>
+            
+        </form>
+        <br>
+        <div id="imgg"></div>
+    </div>
+    <br><br>
+    <div>
+        <p> Cinema location</p>
+        <br>
+        <img src="images/address1.png" alt="Not available" >
+        <br>
+        <p>Central Cinema</p>
+        <p>Address: Chung Shun Building, 6-12 Sai Yeung Choi St S, Mong Kok</p>
+        <br>
+        <img src="images/address2.png" alt="Not available" >
+        <p>Mong Kok Cinema</p>
+        <p>Address:Cityplaza, 18 Tai Koo Shing Rd, Quarry Bay</p>
+        <br>
+        <img src="images/address3.png" alt="Not available">
+        <p>Festival Walk Cinema</p>
+        <p>Address:60 Soy St, Mong Kok</p>
+    </div>
+    <br>
+    <div id="footer">
+        <p>Footer:@Copyright of resources belong to corresponding copywrite owners- fair use</p>
+        <p>for education purposes <a href="home.html">| Home |</a> <a href="design.html">Design</a> </p>
+    </div>
+    <br><br>
+
+    <script  type="text/javascript">
+        window.onload = init();
+        function indi(val) {
+            var database = getCinemas();
+            var l =database.length;
+            var database1 = getMovies();
+            var l1 = database1.length;
+
+            var i = 0;
+            var cin = document.getElementById("cinema");
+            var o = 0;
+            for (i;i<l;i++)
+            {
+                var cn = database[i].branchName;
+                console.log(cn);
+                var l2 = database.length;
+                console.log(l2);
+                var j =0;
+
+                var cn1 = window.localStorage.getItem("Cinema");
+                console.log(cn1);
+                console.log(database[i].movies.length);
+
+                var o = 0;
+                var l3 = database[i].movies[j].shows.length;
+                
+                if (cn == cn1)
+                {
+                    return i;
+                }
+                
+
+                
+            }
+
+            
+        }
+        function nt()
+            {
+                console.log("button works");
+               
+                var Cinema = document.getElementById("cinema").value;
+                localStorage.setItem("Cinema", Cinema);
+                localStorage.setItem("i", indi(Cinema));
+                    
+                window.localStorage.setItem("test");
+                console.log(window.localStorage.getItem("i"));
+                console.log(Cinema);
+            };
+        function init(){
+            var database = getCinemas();
+            var l =database.length;
+            var database1 = getMovies();
+            var l1 = database1.length;
+
+            
+
+            var i = 0;
+            var cin = document.getElementById("cinema");
+            var o = 0;
+            for (i;i<l;i++){
+                var cn = database[i].branchName;
+                
+                cin.options[cin.options.length] = new Option(cn, cn);
+
+                
+                var l2 = database[i].movies.length;
+                var j =0;
+
+                for(var x = 0,j; x<l2; x++,j++)
+                {
+                    for(var y = 0; y<l1; y++)
+                    {
+                        if(database[i].movies[x].id == database1[y].id)
+                        {
+                            var im = database1[y].thumbnail;
+                            var mn  = database1[y].name;
+                            var idd = database1[y].id;
+                            
+                            var para = document.createElement("div");
+                            para.setAttribute("class", "cell");                
+                            para.innerHTML = "<p class=\"cell"+j+"\"><img src="+im+" alt="+mn+" class=\"thumbnail\"><label for=\"mname1\">Movie name: </label><br><input type=\"text\" id=\""+idd+"\" name=\"name\"value=\" "+mn+"\"><select name=\"timing\" class=\"timing\"></select><input type=\"submit\" value=\"Buy Tickets\" onclick = \"nt()\"><br><br><br></p>" ;     
+                            let fff = document.createElement("form");
+                            fff.setAttribute("action", "ticket.html");
+                            fff.setAttribute("method", "GET");
+                            fff.setAttribute("class", "book-form");
+                            fff.append(para);
+                            
+                            document.getElementById("imgg").append(fff);                                
+                        }
+                    }
+
+                    
+                    var l3 = database[i].movies[x].shows.length;
+                    var tim = document.getElementsByClassName("timing");
+                    
+                  
+
+                    for (var w = 0;w<l3;w++)
+                    {
+                        var timin = database[i].movies[x].shows[w].datetime;
+                       
+                        tim[o].options[tim[o].options.length] = new Option(timin,timin);
+                    }
+                    o++;
+                    
+                }
+                document.getElementById("imgg").style.visibility="hidden";
+            }
+
+            document.getElementById("cinema").addEventListener('change',
+                  function() {
+                    
+                    var ddl = document.getElementById("cinema");
+                    var selectedValue = ddl.selectedIndex;
+
+                 
+                    if (selectedValue == 0){
+                        
+                        alert("Please select a cinema hall!");
+                        document.getElementById("imgg").style.display="none";
+                    }
+
+                    
+
+                    else { for (var h = 1;h<=(l+1);h++){
+                        if(selectedValue == h){
+                            document.getElementById("imgg").style.display="block";
+                            
+                            
+                            var f = document.getElementsByClassName("cell");
+                            for(var t = 0; t<f.length;t++){f[t].style.display="none"};
+                           
+                            if(h == 1){var f1 = h-1}
+                            else{var f1 = h;}
+                            do{
+                                
+                                f[f1].style.display="block";
+                                f[f1].style.visibility="visible";
+                                f1++;
+                                var chc = f[f1].getElementsByTagName("p");
+                                
+                            }while (chc[0].getAttribute("class") != "cell0");
+                        } 
+                    }
+                    }
+                    
+                }
+            );       
+        }
+    
+            
+        
+        </script>
+</body>
+</html>
