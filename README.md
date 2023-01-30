@@ -1,2 +1,3 @@
 # cinema_website
 It is coursework CS2204 CW3 - completed website of the cinema. I uploaded all required files and placed in the folders. Stylingpart folder is created with CSS, action folder is Javascript part. 
+Home page is the main page where you can find movies that are available. Now Showing page is for chosing the date and movie, locations are included as well. If you click "buy ticket" button the website will be redirected to Ticket page where seat number options are shown. The website will automotically generate tickets for you with all necessary details. Design page is a brief explanation of how the website was built.
