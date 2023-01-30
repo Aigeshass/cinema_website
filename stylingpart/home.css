@@ -1,0 +1,10 @@
+[width="120"] {
+    float:left;
+    position:relative;
+    top:10px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+.showing{
+    font-weight:bold;
+}

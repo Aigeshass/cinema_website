@@ -1,0 +1,35 @@
+@media print {
+    header {
+        display: none;
+    }
+    footer {
+        display: none;
+    }
+    
+    #header, #footer{
+    display: none;
+    }
+    .navigation{
+        margin-top: 0pt;
+        display: none;
+    }
+    
+    .row{
+        margin-top: 0pt;
+        
+    }
+    .column{
+        float: none;
+        break-after: page;
+        margin-left: 25%;
+        padding-top: 25%;
+        margin-right: 25%;
+    }
+    .column:last-child{
+        break-after: avoid-page;
+        break-before: avoid-page;
+        
+    }
+    
+}
+        

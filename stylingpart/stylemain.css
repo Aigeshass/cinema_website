@@ -1,0 +1,90 @@
+
+@keyframes logog{
+    from{top:0cm;}
+    to{top:1cm;}
+}
+#logo{
+    position:relative;
+    margin-top: 100px;
+    animation-name: logog;
+    animation-duration: 3s;
+}
+h1, #footer{
+    text-align: center;
+}
+.navigation{
+    overflow: hidden;
+    background-color: rgb(22, 121, 96);
+    position: fixed;
+    width: 97%;
+    margin: left 0px;
+    margin-top: 0px;
+    z-index: 1;
+}
+a.navigation{
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 20px;
+}
+    
+
+
+div>h1{
+    height:250px;
+}
+*{
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+div, dl{
+    border-radius: 5px;
+    padding-left: 20px;
+    border-style:groove;
+    border-color: rgb(187, 209, 228);
+    border-width: 2px;
+    box-shadow: 15px 10px rgb(203, 238, 218);
+}
+/*--a {
+    display: inline-block;
+    pointer-events: none;
+  */
+
+
+/* home page */
+
+/*now showing */
+form{
+    text-align: center;
+}
+p>img{
+    float:left;
+    left: 30%;
+    position:relative;
+}
+[type=button]{
+    position:relative;
+    float:right;
+    clear:both;
+    top:-30px;
+    
+}
+/*ticket */
+table, th, td{
+    width: 170px;
+    height:60px;
+    border: 1px solid black;
+    border-collapse: collapse;
+    text-align: center;
+
+    
+}
+p.row{
+    
+    float:left;
+    top:-50px;
+    margin-right:150px;
+    position:relative;
+}
