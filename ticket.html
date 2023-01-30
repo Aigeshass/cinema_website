@@ -1,0 +1,194 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket page</title>
+    <link rel="stylesheet" type="text/css" href="stylingpart/stylemain.css">
+    <link rel="stylesheet" type="text/css" href="stylingpart/ticket.css">
+    
+    <script rel="javascript" type="text/javascript" src="actionfile/movies.js"></script>
+    <script rel="javscript" type="text/javascript" src="actionfile/ticket.js"></script>
+    <script rel="javascript" type="text/javascript" src="actionfile/cinemas.js"></script>
+</head>
+<body>
+    <div class="navigation">
+        <p>MAIN MENU</p>
+        <nav>
+            <ul>
+                <li><a href="home.html">Home page</a></li>
+                <li><a href="nowshowingpage.html">Now Showing page</a></li>
+                <li><a role="ticket.html" aria-disabled="true">Ticket page</a></li>
+             </ul>
+        </nav>
+    </div>
+    <br>
+        <div>
+            <h1>New<img src="images/filmreel.png " alt="Not available" id="logo"> World</h1>
+        </div>
+        <br><br>
+        
+        <div>
+            <div id="display_details">
+                <h4 id="cinema_ticket">CINEMA</h4>
+                <h4 id="movie_ticket">MOVIE</h4>
+                
+                <h4 id="date">DATE</h4>
+                <h4 id="house_ticket">HOUSE</h4>
+            </div> 
+            <p>SCREEN</p>
+            <table class="customers">
+                <tbody>
+                    <tr>
+                        <th>Row </th>
+                        <th>Column 1</th>
+                        <th>Column 2</th>
+                        <th>Column 3</th>
+                        <th>Column 4</th>
+                      </tr>
+                      <tr>
+                        <td><b>Row A</b></td>
+                        <td id="1" class="seat" onclick="tdclick(this)">1</td>
+                        <td id="2" class="seat" onclick="tdclick(this)">2</td>
+                        <td id="3" class="seat" onclick="tdclick(this)">3</td>
+                        <td id="4" class="seat" onclick="tdclick(this)">4</td>
+                    </tr>
+                    <tr>
+                        <td><b>Row B</b></td>
+                        <td id="5" class="seat" onclick="tdclick(this)">5</td>
+                        <td id="6" class="seat" onclick="tdclick(this)">6</td>
+                        <td id="7" class="seat" onclick="tdclick(this)">7</td>
+                        <td id="8" class="seat" onclick="tdclick(this)">8</td>
+                    </tr>
+                    <tr>
+                        <td><b>Row C</b></td>
+                        <td id="9" class="seat" onclick="tdclick(this)">9</td>
+                        <td id="10" class="seat" onclick="tdclick(this)">10</td>
+                        <td id="11" class="seat" onclick="tdclick(this)">11</td>
+                        <td id="12" class="seat" onclick="tdclick(this)">12</td>
+                    </tr>
+                </tbody>
+            </table>
+            <form action='' method='get' id="screen-form">
+                <h3><label for="seat-booked">Seat Booked</label></h3>
+                <input id="seat-booked">
+                <button>Confirm</button>
+            </form>
+        
+        </div>
+        <script>
+            window.onload = init();
+            var ind = localStorage.getItem("index");
+            console.log(ind+" is the index");
+            function tdclick(x)
+            {
+                console.log('td clicked'); 
+                x.style.backgroundColor = '#009cd8';
+                x.style.textDecoration = 'none';
+                x.style.pointerevents = 'none';
+                x.style.cursor = 'not-allowed'; 
+            }; 
+        
+            function init() {
+                const d = getCinemas();
+                const c = getMovies();
+                console.log(c);
+        
+        
+                window.addEventListener('load', dat);
+        
+                function dat() {
+                    const params = (new URL(document.location)).searchParams;
+                    const name = params.get("name");
+                    const date = params.get("timing");
+                    const cinema = localStorage.getItem("Cinema");
+                    const i = localStorage.getItem("i");
+        
+                    function h ()
+                    {
+                        for (var j=0;j<d[i].movies.length;j++)
+                        {
+                            for(var y = 0; y<c.length; y++)
+                            { 
+                                if(d[i].movies[j].id == c[y].id && c[y].name == name.trim())
+                                {
+                                    var mn  = c[y].name;
+                                    console.log(mn);
+                                    
+                                    for(let b = 0;b<d[i].movies[j].shows.length;b++)
+                                    {
+                                        console.log(date ? d[i].movies[j].shows[b].datetime == date : 0);
+                                        if (d[i].movies[j].shows[b].datetime == date)
+                                        {
+                                            console.log(d[i].movies[j].shows[b].house);
+                                            localStorage.setItem("index",d[i].movies[j].shows[b].index);
+                                            return d[i].movies[j].shows[b].house;
+                                        }
+                                    }
+                                                         
+                                }
+                            }
+                        }
+                    }
+        
+                    document.querySelector("button").addEventListener("click", tat);
+                    document.getElementById("movie_ticket").append(" " + name);
+                    document.getElementById("date").append(" " + date);
+                    document.getElementById("cinema_ticket").append(" " + cinema);
+                    document.getElementById("house_ticket").append(" " + h());
+        
+                    function tat() {
+                        var frm = document.getElementById("screen-form");
+                        if (a.length != 0) {
+                            frm.action = "printpage.html";
+                            localStorage.setItem("Cinema", cinema);
+                            localStorage.setItem("a", a);
+                            localStorage.setItem("date", date);
+                            localStorage.setItem("movieName",name);
+                            localStorage.setItem("house", h());
+
+                        } else 
+                        {
+                            alert("Please select any seat!!");
+                            frm.action = "javascript:void(0)";
+                        }
+        
+                    }
+                    return;
+        
+                }
+        
+                let m = document.querySelectorAll(".seat");
+        
+                for (let i = 0; i < m.length; i++) {
+                    m[i].addEventListener("click", function() {
+                        chng(i)
+                    });
+                }
+                a = [];
+        
+                function chng(i)
+                {
+                    m[i].classList.add("ok");
+                    if (m[i].getAttribute("id") != "sel") 
+                    {
+                        a[a.length] = m[i].getAttribute("id");
+                    }
+                    document.getElementById("seat-booked").setAttribute("value", a);
+                    m[i].setAttribute("id", "sel");
+                }
+                   
+        
+            }
+        </script>
+    </body>
+        <br><br>
+        <div id="footer">
+            <p>Footer:@Copyright of resources belong to corresponding copywrite owners-</p>
+            <p>fair use for education purposes <a href="home.html">| Home |</a> <a href="design.html">Design</a></p>
+        </div>
+       
+</body>
+</html>
